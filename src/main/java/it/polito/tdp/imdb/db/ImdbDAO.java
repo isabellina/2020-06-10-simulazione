@@ -16,7 +16,8 @@ import it.polito.tdp.imdb.model.Movie;
 public class ImdbDAO {
 	
 	public void listAllActors(Map<Integer, Actor> idMap){
-		String sql = "SELECT * FROM actors";
+		String sql = "SELECT * FROM actors "
+				+ "order by last_name ASC";
 		List<Actor> result = new ArrayList<Actor>();
 		Connection conn = DBConnect.getConnection();
 

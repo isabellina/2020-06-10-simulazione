@@ -10,6 +10,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
+import org.jgrapht.traverse.BreadthFirstIterator;
 
 import it.polito.tdp.imdb.db.ImdbDAO;
 
@@ -65,6 +66,17 @@ public class Model {
 	
 	public int nArchi() {
 		return this.grafo.edgeSet().size();
+	}
+	
+	public List<Actor> getAttoriSimili(Actor a){
+		List<Actor> listaAttoriSimili = new LinkedList<Actor>();
+		BreadthFirstIterator<Actor,DefaultWeightedEdge> bfi = new BreadthFirstIterator<>(this.grafo, a);
+		
+		while(bfi.hasNext()) {
+			listaAttoriSimili.add(bfi.next());
+		}
+		Collections.sort(listaAttoriSimili);
+		return listaAttoriSimili;
 	}
 
 }

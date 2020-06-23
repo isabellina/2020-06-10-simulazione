@@ -55,6 +55,10 @@ public class FXMLController {
     	ObservableList<Actor> attori = FXCollections.observableList(this.model.getActorGenre(this.boxGenere.getValue()));
     	boxAttore.setItems(attori);
     	boxAttore.setValue(attori.get(0));
+    	txtResult.appendText("ecco lista attori connessi:" + "\n");
+    	for(Actor a : this.model.getAttoriSimili(boxAttore.getValue())) {
+    		txtResult.appendText(a + "\n");
+    	}
     	
     }
 
