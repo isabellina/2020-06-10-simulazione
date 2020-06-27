@@ -1,5 +1,6 @@
 package it.polito.tdp.imdb.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import org.jgrapht.Graph;
 import org.jgrapht.Graphs;
+import org.jgrapht.alg.connectivity.ConnectivityInspector;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleWeightedGraph;
 import org.jgrapht.traverse.BreadthFirstIterator;
@@ -49,9 +51,9 @@ public class Model {
 				if(edge==null) {
 					Graphs.addEdgeWithVertices(this.grafo, a.getA1(), a.getA2(), a.getPeso());
 				}
-				else {
+				/*else {
 					this.grafo.setEdgeWeight(a.getA1(), a.getA2(), a.getPeso());
-				}
+				} */
 			}
 		}
 		
@@ -75,8 +77,18 @@ public class Model {
 		while(bfi.hasNext()) {
 			listaAttoriSimili.add(bfi.next());
 		}
+		listaAttoriSimili.remove(a);
 		Collections.sort(listaAttoriSimili);
 		return listaAttoriSimili;
+		
+		/*System.out.println(a.getLastName());
+		ConnectivityInspector<Actor, DefaultWeightedEdge> ci = new ConnectivityInspector<Actor, DefaultWeightedEdge>(this.grafo);
+		List<Actor> actors = new ArrayList<>(ci.connectedSetOf(a));
+		actors.remove(a);
+		Collections.sort(actors);  
+
+			
+		return actors;  */
 	}
 
 }

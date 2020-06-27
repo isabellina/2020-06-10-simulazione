@@ -52,9 +52,7 @@ public class FXMLController {
     @FXML
     void doAttoriSimili(ActionEvent event) {
     	
-    	ObservableList<Actor> attori = FXCollections.observableList(this.model.getActorGenre(this.boxGenere.getValue()));
-    	boxAttore.setItems(attori);
-    	boxAttore.setValue(attori.get(0));
+    	
     	txtResult.appendText("ecco lista attori connessi:" + "\n");
     	for(Actor a : this.model.getAttoriSimili(boxAttore.getValue())) {
     		txtResult.appendText(a + "\n");
@@ -74,7 +72,12 @@ public class FXMLController {
 
     @FXML
     void doSimulazione(ActionEvent event) {
-
+    	try {
+    		int giorno = Integer.parseInt(txtGiorni.getText());
+    	}
+    	catch(NumberFormatException n) {
+    		txtResult.appendText("Devi inserire un numero intero"); 
+    	}
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
