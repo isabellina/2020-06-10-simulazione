@@ -70,6 +70,10 @@ public class Model {
 		return this.grafo.edgeSet().size();
 	}
 	
+	public Graph<Actor,DefaultWeightedEdge> getGrafo(){
+		return this.grafo;
+	}
+	
 	public List<Actor> getAttoriSimili(Actor a){
 		List<Actor> listaAttoriSimili = new LinkedList<Actor>();
 		BreadthFirstIterator<Actor,DefaultWeightedEdge> bfi = new BreadthFirstIterator<>(this.grafo, a);

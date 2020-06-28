@@ -24,7 +24,7 @@ public class Simulatore {
 	private Graph<Actor,DefaultWeightedEdge> grafo;
 	private PriorityQueue<Evento> queue = new PriorityQueue<>();
 	private List<Actor> attoriIntervistati = new LinkedList<Actor>() ;
-	private int pausa=0;
+	public int pausa=0;
 	private Random rm = new Random();
 	private int giorniConsecutivi=0;;
 	
@@ -50,7 +50,7 @@ public class Simulatore {
 	public void init() {
 		Actor aa = this.getAttoreCasuale();
 		if(aa!=null) {
-			queue.add(new Evento(aa,TipoEvento.INTERVISTA));
+			queue.add(new Evento(aa,TipoEvento.INTERVISTA,nGiorni));
 			this.run();
 		}
 	}
@@ -64,7 +64,7 @@ public class Simulatore {
 				nGiorni++;
 				Actor aa = this.getAttoreCasuale();
 				if(aa!=null) {
-					queue.add(new Evento(aa,TipoEvento.INTERVISTA));
+					queue.add(new Evento(aa,TipoEvento.INTERVISTA,nGiorni));
 					this.attori.remove(aa);
 				}
 				break;
@@ -74,7 +74,7 @@ public class Simulatore {
 				nGiorni++;
 				if(this.giorniConsecutivi>=2) {
 					if(this.rm.nextFloat()<=0.9) {
-						queue.add(new Evento(null, TipoEvento.PAUSA));
+						queue.add(new Evento(null, TipoEvento.PAUSA,nGiorni));
 						giorniConsecutivi=0;
 						break;
 					}
@@ -86,7 +86,7 @@ public class Simulatore {
 				if(d==null) {
 					return ;
 				}
-				queue.add(new Evento(d,TipoEvento.INTERVISTA));
+				queue.add(new Evento(d,TipoEvento.INTERVISTA,nGiorni));
 				break;
 			
 			}
@@ -95,8 +95,8 @@ public class Simulatore {
 		
 	}
 	
-	public List<Actor> getList {
-		return null;
+	public List<Actor> getList() {
+		return this.attoriIntervistati;
 	}
 	
 	public Actor getAttoreProb(Actor a) {

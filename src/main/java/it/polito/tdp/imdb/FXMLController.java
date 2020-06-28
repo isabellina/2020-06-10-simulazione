@@ -5,10 +5,13 @@
 package it.polito.tdp.imdb;
 
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.imdb.model.Actor;
 import it.polito.tdp.imdb.model.Model;
+import it.polito.tdp.imdb.model.Simulatore;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,7 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	private Model model;
+	private Simulatore simulatore;
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -73,8 +77,25 @@ public class FXMLController {
     @FXML
     void doSimulazione(ActionEvent event) {
     	try {
-    		int giorno = Integer.parseInt(txtGiorni.getText());
-    	}
+    		if(this.model.getGrafo()!=null) {
+	    		int giorno = Integer.parseInt(txtGiorni.getText());
+	    		String s =boxGenere.getValue();
+	    		this.simulatore = new Simulatore(s,this.model.getGrafo(), giorno);
+	    		this.simulatore.init();
+	    		
+	    		
+	    		txtResult.appendText("Attori intervistati : \n ");
+	    		List<Actor> l = new LinkedList<Actor>(this.simulatore.getList());
+	    		for(Actor a: l) {
+	    			txtResult.appendText(a+ "\n");
+	    		}
+	    		
+	    		txtResult.appendText("Numero pause : " + this.simulatore.pausa);
+    	 }
+    		else {
+    			txtResult.appendText("Devi creare prima il grafo");
+    		}
+    	}		
     	catch(NumberFormatException n) {
     		txtResult.appendText("Devi inserire un numero intero"); 
     	}

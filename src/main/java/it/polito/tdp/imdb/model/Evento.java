@@ -1,6 +1,6 @@
 package it.polito.tdp.imdb.model;
 
-public class Evento {
+public class Evento implements Comparable<Evento> {
 	
 	public enum TipoEvento{
 		INTERVISTA,
@@ -9,12 +9,14 @@ public class Evento {
 	
 	private Actor a;
 	private TipoEvento tipo;
+	private int giornoAcuisonoArrivata;
 	
 
-	public Evento(Actor a, TipoEvento tipo) {
+	public Evento(Actor a, TipoEvento tipo,int giornoAcuisonoArrivata) {
 		super();
 		this.a = a;
 		this.tipo = tipo;
+		this. giornoAcuisonoArrivata =  giornoAcuisonoArrivata;
 		
 		
 	}
@@ -33,6 +35,22 @@ public class Evento {
 
 	public void setTipo(TipoEvento tipo) {
 		this.tipo = tipo;
+	}
+	
+	
+
+	public int getGiornoAcuisonoArrivata() {
+		return giornoAcuisonoArrivata;
+	}
+
+	public void setGiornoAcuisonoArrivata(int giornoAcuisonoArrivata) {
+		this.giornoAcuisonoArrivata = giornoAcuisonoArrivata;
+	}
+
+	@Override
+	public int compareTo(Evento o) {
+		// TODO Auto-generated method stub
+		return this.giornoAcuisonoArrivata-o.getGiornoAcuisonoArrivata() ;
 	}
 	
 	
